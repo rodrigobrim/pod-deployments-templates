@@ -32,6 +32,15 @@ spec:
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+
+{% for env in environment_vars %}
+{% if loop.first %}
+        env:
+{% endif %}
+        - name: {{ env.name }}
+          value: {{ env.value }}
+{% endfor %}
+
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
