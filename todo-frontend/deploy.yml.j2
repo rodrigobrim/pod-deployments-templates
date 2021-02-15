@@ -57,6 +57,7 @@ metadata:
   name: {{ pod.app }}
   namespace: default
 spec:
+  externalTrafficPolicy: Cluster
   ports:
   - port: {{ pod.expose.port }}
     protocol: TCP
