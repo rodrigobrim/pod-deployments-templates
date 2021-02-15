@@ -33,7 +33,7 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
 
-{% for env in environment_vars %}
+{% for env in pod.environment_vars %}
 {% if loop.first %}
         env:
 {% endif %}
