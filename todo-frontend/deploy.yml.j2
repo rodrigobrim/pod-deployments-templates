@@ -50,9 +50,9 @@ metadata:
 spec:
   externalTrafficPolicy: Cluster
   ports:
-  - port: {{ pod.port }}
+  - port: {{ pod.expose.port }}
     protocol: TCP
-    targetPort: {{ pod.target_port }}
+    targetPort: {{ pod.expose.target_port }}
   selector:
     app: {{ pod.app }}
   sessionAffinity: None
