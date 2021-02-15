@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  generation: 1
+  labels:
+    app: {{ pod.app }}
+  name: {{ pod.app }}
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: {{ pod.replicas }}
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: {{ pod.app }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ pod.app }}
+    spec:
+      containers:
+      - image: {{ pod.image }}
+        imagePullPolicy: IfNotPresent
+        name: todo-backend
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
